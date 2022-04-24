@@ -62,6 +62,12 @@ class PracticeWidget(QWidget):
         class_name, class_naimenovation, recomendation = utils.get_result(energo_effencity)
         print(class_name, class_naimenovation, recomendation)
 
+        result_text = f"Класс - {class_name}\n" \
+                      f"Наименование класса - {class_naimenovation}\n" \
+                      f"Рекомендации - {recomendation}"
+
+        self.result_text.setText(result_text)
+
 
 class TheoryWidget(QWidget):
     def __init__(self, *args, **kwargs):
