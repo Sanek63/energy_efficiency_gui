@@ -1,6 +1,4 @@
-﻿
-
-def calc_gsop(t_v, t_ot, z_ot):
+﻿def calc_gsop(t_v, t_ot, z_ot):
     return (t_v - t_ot) * z_ot
 
 
@@ -68,7 +66,6 @@ def calc_q_god_ot(gsop, v_ot, q_ot_p):
 
 
 def calc_energo_effencity(q_p_ot, q_tr_ot):
-    print(q_p_ot, q_tr_ot)
     return (q_p_ot - q_tr_ot) / q_p_ot * 100
 
 
