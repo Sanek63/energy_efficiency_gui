@@ -1,8 +1,24 @@
-import utils
+import utils, images
+from PyQt5.QtCore import QObject, pyqtSignal, QEvent
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow
 
-from PyQt5.QtWidgets import QWidget
+
+def clickable(widget):
+    class Filter(QObject):
+        clicked = pyqtSignal()
+
+        def eventFilter(self, obj, event):
+            if obj == widget:
+                if event.type() == QEvent.MouseButtonRelease:
+                    if obj.rect().contains(event.pos()):
+                        self.clicked.emit()
+                        return True
+            return False
+
+    filter = Filter(widget)
+    widget.installEventFilter(filter)
+    return filter.clicked
 
 
 class PracticeWidget(QWidget):
@@ -73,6 +89,53 @@ class TheoryWidget(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         uic.loadUi('./ui/theory.ui', self)
+
+        clickable(self.label_1).connect(self.section_1)
+        clickable(self.label_1_1).connect(self.section_1_1)
+        clickable(self.label_1_2).connect(self.section_1_2)
+        clickable(self.label_1_3).connect(self.section_1_3)
+        clickable(self.label_1_4).connect(self.section_1_4)
+        clickable(self.label_1_5).connect(self.section_1_5)
+        clickable(self.label_1_6).connect(self.section_1_6)
+        clickable(self.label_1_7).connect(self.section_1_7)
+        clickable(self.label_1_8).connect(self.section_1_8)
+
+        self.btn_1.clicked.connect(self.section_1)
+        self.btn_1_1.clicked.connect(self.section_1_1)
+        self.btn_1_2.clicked.connect(self.section_1_2)
+        self.btn_1_3.clicked.connect(self.section_1_3)
+        self.btn_1_4.clicked.connect(self.section_1_4)
+        self.btn_1_5.clicked.connect(self.section_1_5)
+        self.btn_1_6.clicked.connect(self.section_1_6)
+        self.btn_1_7.clicked.connect(self.section_1_7)
+        self.btn_1_8.clicked.connect(self.section_1_8)
+
+    def section_1(self):
+        self.scrollArea.verticalScrollBar().setValue(0)
+
+    def section_1_1(self):
+        self.scrollArea.verticalScrollBar().setValue(1080)
+
+    def section_1_2(self):
+        self.scrollArea.verticalScrollBar().setValue(3200)
+
+    def section_1_3(self):
+        self.scrollArea.verticalScrollBar().setValue(4340)
+
+    def section_1_4(self):
+        self.scrollArea.verticalScrollBar().setValue(5600)
+
+    def section_1_5(self):
+        self.scrollArea.verticalScrollBar().setValue(6900)
+
+    def section_1_6(self):
+        self.scrollArea.verticalScrollBar().setValue(8900)
+
+    def section_1_7(self):
+        self.scrollArea.verticalScrollBar().setValue(10900)
+
+    def section_1_8(self):
+        self.scrollArea.verticalScrollBar().setValue(14700)
 
 
 class MainWindow(QMainWindow):
