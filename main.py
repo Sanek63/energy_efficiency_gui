@@ -88,7 +88,7 @@ class PracticeWidget(QWidget):
 class TheoryWidget(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        uic.loadUi('./ui/theory.ui', self)
+        uic.loadUi('ui/theory.ui', self)
 
         clickable(self.label_1).connect(self.section_1)
         clickable(self.label_1_1).connect(self.section_1_1)
@@ -141,7 +141,7 @@ class TheoryWidget(QWidget):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('./ui/main.ui', self)
+        uic.loadUi('ui/main.ui', self)
         self.theory_widget = TheoryWidget()
         self.stackedWidget.addWidget(self.theory_widget)
         self.practice_widget = PracticeWidget()
