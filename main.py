@@ -150,6 +150,8 @@ class MainWindow(QMainWindow):
         self.theory_change.clicked.connect(self.go_to_theory)
         self.practice_change.clicked.connect(self.go_to_practice)
 
+        self.setFixedSize(1350, 769)
+
     def go_to_theory(self):
         self.stackedWidget.setCurrentIndex(0)
 
