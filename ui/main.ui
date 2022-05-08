@@ -27,7 +27,7 @@
    <widget class="QPushButton" name="theory_change">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>120</x>
       <y>0</y>
       <width>88</width>
       <height>34</height>
@@ -40,7 +40,7 @@
    <widget class="QPushButton" name="practice_change">
     <property name="geometry">
      <rect>
-      <x>110</x>
+      <x>220</x>
       <y>0</y>
       <width>88</width>
       <height>34</height>
@@ -48,6 +48,19 @@
     </property>
     <property name="text">
      <string>Практика</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="about_program_change">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>0</y>
+      <width>91</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>О программе</string>
     </property>
    </widget>
   </widget>

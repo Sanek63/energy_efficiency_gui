@@ -1,4 +1,7 @@
-import utils, images
+import utils
+import images
+import about
+
 from PyQt5.QtCore import QObject, pyqtSignal, QEvent
 from PyQt5 import uic
 from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow
@@ -138,6 +141,12 @@ class TheoryWidget(QWidget):
         self.scrollArea.verticalScrollBar().setValue(14700)
 
 
+class AboutWidget(QWidget):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        uic.loadUi('ui/about.ui', self)
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -146,9 +155,12 @@ class MainWindow(QMainWindow):
         self.stackedWidget.addWidget(self.theory_widget)
         self.practice_widget = PracticeWidget()
         self.stackedWidget.addWidget(self.practice_widget)
+        self.about_widget = AboutWidget()
+        self.stackedWidget.addWidget(self.about_widget)
 
         self.theory_change.clicked.connect(self.go_to_theory)
         self.practice_change.clicked.connect(self.go_to_practice)
+        self.about_program_change.clicked.connect(self.go_to_about)
 
         self.setFixedSize(1350, 769)
 
@@ -157,6 +169,9 @@ class MainWindow(QMainWindow):
 
     def go_to_practice(self):
         self.stackedWidget.setCurrentIndex(1)
+
+    def go_to_about(self):
+        self.stackedWidget.setCurrentIndex(2)
 
 
 if __name__ == '__main__':
