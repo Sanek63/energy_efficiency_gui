@@ -4,7 +4,10 @@ import about
 
 from PyQt5.QtCore import QObject, pyqtSignal, QEvent
 from PyQt5 import uic
-from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow
+from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QDialog
+
+
+W = ...
 
 
 def clickable(widget):
@@ -79,13 +82,30 @@ class PracticeWidget(QWidget):
         energo_effencity = utils.calc_energo_effencity(q_p_ot=q_ot_p, q_tr_ot=q_tr_ot)
 
         class_name, class_naimenovation, recomendation = utils.get_result(energo_effencity)
-        print(class_name, class_naimenovation, recomendation)
 
         result_text = f"Класс - {class_name}\n" \
                       f"Наименование класса - {class_naimenovation}\n" \
                       f"Рекомендации - {recomendation}"
 
         self.result_text.setText(result_text)
+
+        global W
+        W = ResultDialog(
+            gsop=gsop,
+            f=f,
+            k_komp=k_komp,
+            k_obsh=k_obsh,
+            n_v=n_v,
+            k_ob=k_ob,
+            k_vent=k_vent,
+            k_bit=k_bit,
+            k_rad=k_rad,
+            u=u,
+            q=q,
+            q_ot_p=q_ot_p,
+            q_god_ot=q_god_ot
+        )
+        W.show()
 
 
 class TheoryWidget(QWidget):
@@ -147,16 +167,40 @@ class AboutWidget(QWidget):
         uic.loadUi('ui/about.ui', self)
 
 
+class ResultDialog(QDialog):
+    def __init__(self, *args, **kwargs):
+        super().__init__()
+        uic.loadUi('ui/result.ui', self)
+
+        self.close_btn.clicked.connect(self.close)
+        self.out(**kwargs)
+
+    def out(self, **kwargs):
+        self.gsop_out.setText(str(round(kwargs.get('gsop'), 4)))
+        self.f_out.setText(str(round(kwargs.get('f'), 4)))
+        self.k_komp_out.setText(str(round(kwargs.get('k_komp'), 4)))
+        self.k_obsh_out.setText(str(round(kwargs.get('k_obsh'), 4)))
+        self.nv_out.setText(str(round(kwargs.get('n_v'), 4)))
+        self.k_ob_out.setText(str(round(kwargs.get('k_ob'), 4)))
+        self.k_vent_out.setText(str(round(kwargs.get('k_vent'), 4)))
+        self.k_bit_out.setText(str(round(kwargs.get('k_bit'), 4)))
+        self.k_rad_out.setText(str(round(kwargs.get('k_rad'), 4)))
+        self.u_out.setText(str(round(kwargs.get('u'), 4)))
+        self.q_out.setText(str(round(kwargs.get('q'), 4)))
+        self.q_p_ot_out.setText(str(round(kwargs.get('q_ot_p'), 4)))
+        self.q_god_out.setText(str(round(kwargs.get('q_god_ot'), 4)))
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('ui/main.ui', self)
+        self.about_widget = AboutWidget()
+        self.stackedWidget.addWidget(self.about_widget)
         self.theory_widget = TheoryWidget()
         self.stackedWidget.addWidget(self.theory_widget)
         self.practice_widget = PracticeWidget()
         self.stackedWidget.addWidget(self.practice_widget)
-        self.about_widget = AboutWidget()
-        self.stackedWidget.addWidget(self.about_widget)
 
         self.theory_change.clicked.connect(self.go_to_theory)
         self.practice_change.clicked.connect(self.go_to_practice)
@@ -165,13 +209,13 @@ class MainWindow(QMainWindow):
         self.setFixedSize(1350, 769)
 
     def go_to_theory(self):
-        self.stackedWidget.setCurrentIndex(0)
-
-    def go_to_practice(self):
         self.stackedWidget.setCurrentIndex(1)
 
-    def go_to_about(self):
+    def go_to_practice(self):
         self.stackedWidget.setCurrentIndex(2)
+
+    def go_to_about(self):
+        self.stackedWidget.setCurrentIndex(0)
 
 
 if __name__ == '__main__':
