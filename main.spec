@@ -11,7 +11,9 @@ a = Analysis(
     datas=[
         ('ui/main.ui', 'ui/'),
         ('ui/practice.ui', 'ui/'),
-        ('ui/theory.ui', 'ui/')
+        ('ui/theory.ui', 'ui/'),
+        ('ui/about.ui', 'ui/'),
+        ('ui/result.ui', 'ui/')
     ],
     hiddenimports=[],
     hookspath=[],
