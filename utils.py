@@ -89,7 +89,6 @@ def calc_q_tr_ot(cnt_floors):
 
 
 def get_result(energo_effencity):
-    print(energo_effencity)
     if energo_effencity <= -60:
         return 'A++', 'Класс очень высокий', 'Экономически стимулированный'
     elif -60 < energo_effencity <= -50:
